@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule, Routes } from '@angular/router';
 import { AddProductsComponent } from './add-products/add-products.component';
 import { ProductDescriptionComponent } from './product-description/product-description.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: '', component: ProductsComponent },
@@ -27,6 +28,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     RouterModule.forRoot(
       appRoutes,

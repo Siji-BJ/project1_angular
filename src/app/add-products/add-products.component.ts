@@ -1,4 +1,5 @@
 import { Component, OnInit, OnChanges, DoCheck, AfterContentInit  } from '@angular/core';
+import { FormGroup, FormControl } from '@angular/forms';
 
 // tslint:disable-next-line: no-conflicting-lifecycle
 @Component({
@@ -6,20 +7,20 @@ import { Component, OnInit, OnChanges, DoCheck, AfterContentInit  } from '@angul
   templateUrl: './add-products.component.html',
   styleUrls: ['./add-products.component.css']
 })
-export class AddProductsComponent implements  OnChanges, OnInit, DoCheck, AfterContentInit {
+export class AddProductsComponent implements OnInit {
+  myForm: FormGroup;
   constructor() { }
-  ngOnChanges() {
-    console.log('ngOnChanges');
-  }
   ngOnInit() {
-    console.log('ngOnInit');
+    this.myForm = new FormGroup({
+      name: new FormControl(''),
+      description : new FormControl(''),
+      price : new FormControl(''),
+      image : new FormControl(''),
+      imageAlt : new FormControl(''),
+      isAvailable : new FormControl(''),
+    });
   }
-  ngDoCheck(){
-    console.log('ngDoCheck');
+  onSubmit(data) {
+      console.log(data);
   }
-  ngAfterContentInit() {
-    console.log('ngAfterContentInit');
-  }
-
-
 }
