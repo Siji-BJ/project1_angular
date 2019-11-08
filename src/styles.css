@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+img{
+    height: 200px;
+    width: 100px;
+}
+.footer{
+    height: 30px; 
+    background-color: rgb(109, 100, 100);
+     width: 100%;
+     text-align: center;
+     color: beige;
+     padding-top: 5px;
+}

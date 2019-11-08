@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+ // import Products interface from Product.ts file
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
