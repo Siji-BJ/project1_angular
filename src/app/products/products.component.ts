@@ -6,12 +6,15 @@ import { ProductService } from 'src/app/service/product.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  products = [];
+  products: any;
   constructor(private productComponent: ProductService) { }
 
   getProductsFromService(): void {
-    this.products = this.productComponent.getProducts();
-    console.log(this.products.length);
+    this.productComponent.getProducts().subscribe(response => {
+      console.log(response);
+      this.products = response;
+  });
+    // console.log(this.products.length);
   }
 
   ngOnInit() {

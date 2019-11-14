@@ -2,7 +2,7 @@
         <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
                 <div class="form-group">
                   <label for="name">Product Name</label>
-                  <input type="text"  class="form-control" formControlName="name" id="productName" aria-describedby="emailHelp" placeholder="Enter product name">
+                  <input type="text"  class="form-control" formControlName="title" id="productName" aria-describedby="emailHelp" placeholder="Enter product name">
                   
                 </div>
 
@@ -18,14 +18,9 @@
 
                 <div class="form-group">
                 <label for="image">Image Path</label>
-                  <input type="text" formControlName="image" class="form-control" id="imagePath" aria-describedby="emailHelp" placeholder="Enter image Path">
+                  <input type="text" formControlName="imageUrl" class="form-control" id="imagePath" aria-describedby="emailHelp" placeholder="Enter image Path">
                 </div>
-
-                <div class="form-group">
-                        <label for="imageAlt">Image Alternative</label>
-                        <input type="text" formControlName="imageAlt" class="form-control" id="imageAlt" aria-describedby="emailHelp" placeholder="Image Alternative text">
-                </div>
-
+                
                 <div class="form-group form-check">
                         <input type="checkbox"  formControlName="isAvailable" class="form-check-input" id="exampleCheck1" name="availability">
                         <label class="form-check-label" for="exampleCheck1">Is Available</label>

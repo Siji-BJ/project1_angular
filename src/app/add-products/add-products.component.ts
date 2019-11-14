@@ -1,6 +1,7 @@
 import { Component, OnInit, OnChanges, DoCheck, AfterContentInit  } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductService } from '../service/product.service';
+import { ActivatedRoute } from '@angular/router';
 
 // tslint:disable-next-line: no-conflicting-lifecycle
 @Component({
@@ -10,30 +11,47 @@ import { ProductService } from '../service/product.service';
 })
 export class AddProductsComponent implements OnInit {
   myForm: FormGroup;
-  constructor(private addProduct: ProductService) { }
+  id: number;
+  private sub: any;
+  private formData: any;
+  constructor(private addProduct: ProductService, private route: ActivatedRoute) { }
   ngOnInit() {
     this.myForm = new FormGroup({
-      name: new FormControl('', Validators.required),
+      title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern('[a-z]+$')]),
       description : new FormControl('', [Validators.required, Validators.maxLength(500)] ),
-      price : new FormControl('', Validators.required),
-      image : new FormControl('', Validators.required),
-      imageAlt : new FormControl('', Validators.required),
+      price : new FormControl('', [Validators.required,  Validators.pattern('[0-9]+$')]),
+      imageUrl : new FormControl('', [Validators.required]),
       isAvailable : new FormControl(''),
     });
+
+    this.sub = this.route.params.subscribe(params => {
+      // tslint:disable-next-line: no-string-literal
+      this.id = +params['id'];
+      this.addProduct.filterProducts(this.id).subscribe(data => {
+        this.formData = data;
+        this.myForm.patchValue({
+          title: this.formData.title,
+          description: this.formData.description,
+          price: this.formData.price,
+          imageUrl: this.formData.imageUrl,
+          isAvailable: this.formData.isAvailable
+          });
+   });
+  });
+
+
   }
   onSubmit(form: FormGroup) {
-    // console.log(this.myForm.value);
-    console.log('Valid? : "', form.valid , '"' );
-    console.log('Product Name : "', form.value.name, '"' );
-    console.log('Product Description : "', form.value.description,  '"' );
-    console.log('Product Price : "', form.value.price,  '"' );
-    console.log('Product Image : "', form.value.image,  '"' );
-    console.log('Product imageAlt : "', form.value.imageAlt,  '"' );
-    console.log('Product availability : "', form.value.isAvailable,  '"' );
-    if ( form.valid ) {
-      this.addProduct.addProducts(this.myForm.value);
-    } else {
-      alert( ' Not Valid ' );
-    }
+    // tslint:disable-next-line: deprecation
+    this.route.params.subscribe(params => {
+      if (this.id) {
+        this.addProduct.updateProducts(form.value, this.id ).subscribe(data => {
+          console.log(data);
+        });
+      } else {
+        this.addProduct.addProducts(form.value).subscribe(data => {
+        });
+      }
+    });
   }
 }

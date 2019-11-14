@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Products } from 'src/app/models/Product';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor() { }
- private products: Array <Products> = [
+  constructor(private http: HttpClient) { }
+ // private products: Array <Products>;
+ /* = [
     {
       // id: 1,
       name: 'Puma Hat',
@@ -94,12 +97,18 @@ export class ProductService {
       isAvailable: false,
       price: 5
     },
-  ];
+  ]; */
   getProducts() {
-    return this.products;
+    return this.http.get('http://localhost:3000/product');
   }
-  addProducts(newProduct: Products) {
-         console.log(newProduct);
-         this.products.push(newProduct);
+  addProducts(newProduct: Products): Observable<Products> {
+    return this.http.post<Products>('http://localhost:3000/product', newProduct);
   }
+  filterProducts(id) {
+      return this.http.get('http://localhost:3000/product/' + id);
+  }
+  updateProducts(formData, id) {
+    return this.http.put('http://localhost:3000/product/' + id, formData);
 }
+  }
+
