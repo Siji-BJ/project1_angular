@@ -1,8 +1,8 @@
 import { Component, OnInit, OnChanges, DoCheck, AfterContentInit  } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProductService } from '../service/product.service';
-import { ActivatedRoute } from '@angular/router';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { from } from 'rxjs';
 // tslint:disable-next-line: no-conflicting-lifecycle
 @Component({
   selector: 'app-add-products',
@@ -14,7 +14,7 @@ export class AddProductsComponent implements OnInit {
   id: number;
   private sub: any;
   private formData: any;
-  constructor(private addProduct: ProductService, private route: ActivatedRoute) { }
+  constructor(private addProduct: ProductService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit() {
     this.myForm = new FormGroup({
       title: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(20), Validators.pattern('[a-z]+$')]),
@@ -27,16 +27,18 @@ export class AddProductsComponent implements OnInit {
     this.sub = this.route.params.subscribe(params => {
       // tslint:disable-next-line: no-string-literal
       this.id = +params['id'];
-      this.addProduct.filterProducts(this.id).subscribe(data => {
-        this.formData = data;
-        this.myForm.patchValue({
-          title: this.formData.title,
-          description: this.formData.description,
-          price: this.formData.price,
-          imageUrl: this.formData.imageUrl,
-          isAvailable: this.formData.isAvailable
-          });
+      if (this.id) {
+        this.addProduct.filterProducts(this.id).subscribe(data => {
+          this.formData = data;
+          this.myForm.patchValue({
+            title: this.formData.title,
+            description: this.formData.description,
+            price: this.formData.price,
+            imageUrl: this.formData.imageUrl,
+            isAvailable: this.formData.isAvailable
+              });
    });
+  }
   });
 
 
@@ -46,10 +48,14 @@ export class AddProductsComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (this.id) {
         this.addProduct.updateProducts(form.value, this.id ).subscribe(data => {
-          console.log(data);
+         // console.log(data);
+         alert('Product added successfully');
+         this.router.navigate(['']);
         });
       } else {
         this.addProduct.addProducts(form.value).subscribe(data => {
+          alert('Product added successfully');
+          this.router.navigate(['']);
         });
       }
     });

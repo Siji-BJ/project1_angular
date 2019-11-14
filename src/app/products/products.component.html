@@ -2,7 +2,7 @@
     
         <div *ngFor="let items of products">
           <div >
-            <app-product-description [item]='items'></app-product-description>
+            <app-product-description [item]='items' (isDeleted)="deleted($event)"></app-product-description>
           </div>
         </div>
       

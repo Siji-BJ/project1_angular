@@ -110,5 +110,8 @@ export class ProductService {
   updateProducts(formData, id) {
     return this.http.put('http://localhost:3000/product/' + id, formData);
 }
+  deleteProducts(id) {
+    return this.http.delete('http://localhost:3000/product/' + id);
+}
   }
 

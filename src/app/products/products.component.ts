@@ -20,4 +20,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.getProductsFromService();
   }
+  deleted(event) {
+    this.getProductsFromService();
+  }
 }
