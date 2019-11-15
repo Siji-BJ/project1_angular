@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/service/product.service';
 })
 export class ProductsComponent implements OnInit {
   products: any;
+  count = 0;
   constructor(private productComponent: ProductService) { }
 
   getProductsFromService(): void {
@@ -22,5 +23,9 @@ export class ProductsComponent implements OnInit {
   }
   deleted(event) {
     this.getProductsFromService();
+  }
+  increment(event) {
+    this.count++;
+    console.log(this.count);
   }
 }

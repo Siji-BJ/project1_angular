@@ -8,8 +8,9 @@ import { ProductService } from '../service/product.service';
   styleUrls: ['./product-description.component.css']
 })
 export class ProductDescriptionComponent implements OnInit {
-  @Input() item: Products;
+   @Input() item: Products;
   @Output() isDeleted = new EventEmitter<boolean>();
+  @Output() isIncremented = new EventEmitter();
   constructor(private productService: ProductService) {
      }
 
@@ -21,6 +22,8 @@ export class ProductDescriptionComponent implements OnInit {
         this.isDeleted.emit();
       });
   }
+  addCount() {
+    this.isIncremented.emit();
 
-
+  }
 }

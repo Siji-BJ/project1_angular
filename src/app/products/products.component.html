@@ -1,8 +1,8 @@
 <div class="container" style="position: relative;">
-    
+  <a href="#" style="background-color: rgb(61, 61, 143); color: white; text-decoration: none; padding: 10px; ">Carts : {{count}}</a>
         <div *ngFor="let items of products">
           <div >
-            <app-product-description [item]='items' (isDeleted)="deleted($event)"></app-product-description>
+            <app-product-description [item]='items' (isDeleted)="deleted($event)" (isIncremented)="increment($event)"></app-product-description>
           </div>
         </div>
       

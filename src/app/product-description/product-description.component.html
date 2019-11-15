@@ -6,7 +6,8 @@
            <h6>Price : $ {{item.price}}</h6>
  
            <button class="btn btn-secondary" [routerLink]="['add-product', item.id]">Update</button>
-           <button class="btn btn-primary mx-4" [disabled]="item.isAvailable">Add to cart</button>
+           <button class="btn btn-primary mx-4" (click)="addCount()">Add to cart</button>
            <button class="btn btn-secondary my-2" (click)="delete(item.id)">Remove</button>
+           
          </div>
        </div>
